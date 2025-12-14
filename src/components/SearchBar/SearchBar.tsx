@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import styles from "../SearchBar/SearchBar.module.css"
 import toast from "react-hot-toast";
 
