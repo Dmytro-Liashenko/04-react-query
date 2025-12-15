@@ -10,7 +10,7 @@ import MovieGrid from "../MovieGrid/MovieGrid";
 import MovieModal from "../MovieModal/MovieModal";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import Loader from "../Loader/Loader";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import ReactPaginate from "react-paginate";
 
 function App() {
@@ -19,17 +19,18 @@ function App() {
   const [page, setPage] = useState<number>(1);
   const [query, setQuery] = useState<string>("")
   
-  const { data, isLoading, isError} = useQuery({
-    queryKey: [query, page],
+  const { data, isLoading, isError, isSuccess} = useQuery({
+    queryKey: ["movies", query, page] ,
     queryFn:  () => fetchMovies(query, page),
-    enabled: query !== ""
+    enabled: query !== "",
+    placeholderData: keepPreviousData
   })
 
 useEffect(() => {
   if (data?.results.length === 0){
     toast("No movies for your request.")
   }
-}, [data])
+}, [data, isSuccess])
 
 
   const handleSearch  = (searchQuery:  string) => {

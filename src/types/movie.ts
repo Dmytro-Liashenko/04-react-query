@@ -8,8 +8,3 @@ export interface Movie {
     vote_average: number;
 }
 
-export interface TmdbSearchResponse{
-    results: Movie[];
-    total_pages: number;
-    page: number;
-}

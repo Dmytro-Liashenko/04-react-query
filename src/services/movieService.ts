@@ -1,9 +1,13 @@
 import axios from "axios";
-import type { TmdbSearchResponse} from "../../src/types/movie";
+import type { Movie} from "../../src/types/movie";
 
 const myKey = import.meta.env.VITE_API_KEY;
 
-
+interface TmdbSearchResponse{
+    results: Movie[];
+    total_pages: number;
+    page: number;
+}
 
 export default async function fetchMovies(query: string, page: number): Promise<TmdbSearchResponse> {
     const url = "https://api.themoviedb.org/3/search/movie";
